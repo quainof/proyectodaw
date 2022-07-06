@@ -1,0 +1,132 @@
+<h1 class="text-center mt-5">Listado de jugadores</h1>
+<div class="container col-lg-8 border mx-auto p-2 mt-2">
+  <form
+    [formGroup]="filtrarJugadoresForm"
+    (ngSubmit)="onFiltrar()"
+  >
+    <h4 for="filtro">Filtros</h4>
+
+    <label
+      for="filtro"
+      class="form-label"
+      >Filtro textual</label>
+    <input
+      id="filtro"
+      type="text"
+      formControlName="filtro"
+      class="form-control"
+    >
+
+    <div class="d-flex gap-3 my-3">
+      <input
+        type="submit"
+        class="p-1 btn btn-secondary mt-2 w-25"
+        value="Filtrar"
+      />
+
+      <input
+        type="button"
+        class="p-1 btn btn-secondary mt-2 w-25"
+        value="Limpiar"
+        (click) = "onLimpiarFiltro()"
+      />
+    </div>
+
+    <div class="d-flex gap-2 w-100">
+      <div class="w-25">
+        <label
+          class="form-label"
+          for="disciplina"
+        >Disciplina</label>
+        <select
+          id="disciplina"
+          class="form-select"
+          formControlName="filtroDisciplina"
+        >
+          <option value="">- Selecione -</option>
+          <option *ngFor="let n of disciplinas" [value]="n.codigo">
+            {{n.nombre}}
+          </option>
+        </select>
+      </div>
+      <div class="w-25">
+        <label
+          class="form-label"
+          for="localidad"
+        >Facultad</label>
+        <select
+          id="localidad"
+          class="form-select"
+          formControlName="filtroFacultad"
+        >
+          <option value="">- Selecione -</option>
+          <option *ngFor="let n of facultades" [value]="n.codigo">
+            {{n.nombre}}
+          </option>
+        </select>
+      </div>
+      <div class="w-50">
+        <label
+          class="form-label"
+          for="nacionalidad"
+        >Nacionalidad</label>
+        <select
+          id="nacionalidad"
+          class="form-select"
+          formControlName="filtroNacionalidad"
+        >
+          <option value="">- Selecione -</option>
+          <option *ngFor="let n of nacionalidades" [value]="n.id">
+            {{n.nombre}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </form>
+
+  <h4 class="mt-5">Tabla de jugadores</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre y Apellido</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Fecha Nacimiento</th>
+        <th scope="col">Facultad</th>
+        <th scope="col">Disciplina</th>
+        <th scope="col">Nacionalidad</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let n of jugadores">
+        <th scope="row">{{n.nombre + " " +n.apellido}}</th>
+        <td>{{n.dni}}</td>
+        <td>{{n.fechaNacimiento | date : "dd/MM/YY"}}</td>
+        <td>{{n.facultad.nombre}}</td>
+        <td>{{n.disciplina.nombre}}</td>
+        <td>{{n.nacionalidad.nombre}}</td>
+        <td>{{n.rol.nombre}}</td>
+        <td>
+          <div class="d-flex gap-2">
+            <button class="btn btn-success" (click)="editar(n.id)">Editar</button>
+            <button class="btn btn-danger" (click)="onEliminar(n.id)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex gap-2">
+    <button
+      (click)="onNuevoJugadorClick()"
+      class="p-2 btn btn-primary mt-2"
+    >Agregar jugador</button>
+    <button
+      (click)="onVolver()"
+      class="p-2 btn btn-secondary mt-2"
+    >Volver al inicio</button>
+  </div>
+</div>
+
+

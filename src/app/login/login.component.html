@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Inicio de sesión</h1>
+        <div class="card">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="card-header">
+                  <b>Ingresa tu usuario y contraseña</b>
+              </div>
+
+              <div class="card-body">
+                  <div class="form-group">
+                  <label
+                      class="form-label"
+                      for="usuario"
+                  >Usuario</label>
+                  <i class="fa-solid fa-house-user"></i>
+                  <input
+                      id="usuario"
+                      type="text"
+                      placeholder="Usuario"
+                      class="form-control"
+                      formControlName="usuario"
+                      [ngClass]="{'is-invalid' : loginForm.controls['usuario'].touched && loginForm.controls['usuario'].errors!['required']}"
+                  />
+                  </div>
+
+                  <div class="form-group">
+                  <label
+                      class="form-label"
+                      for="contra"
+                  >Contraseña</label>
+                  <i class="fa-solid fa-key"></i>
+                  <input
+                      id="contra"
+                      type="text"
+                      placeholder="Contraseña"
+                      class="form-control"
+                      formControlName="password"
+                      [ngClass]="{'is-invalid' : loginForm.controls['password'].touched && loginForm.controls['password'].errors!['required']}"
+                  />
+
+                  </div>
+
+                  <div class="form-group">
+                  <input
+                      type="submit"
+                      value="Iniciar Sesión"
+                      class="btn btn-primary"
+                  />
+                  </div>
+              </div>
+          </form>
+        </div>
+
+        <nav>
+            <a
+                href=""
+            >¿No tienes una cuenta? Regístrate</a>
+
+            <a
+                href=""
+            >Olvidé mi password</a>
+        </nav>
+    </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<div class="container mt-5">
+  <form
+    class="col-lg-6 border mx-auto p-2"
+    [formGroup]="registroForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <h1 class="text-center">Registro de jugador</h1>
+
+    <div class="card-header">
+      <b>Complete con los datos del alumno</b>
+    </div>
+
+    <div class="card-body">
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="nombre"
+          >Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            placeholder="Ingrese el nombre del alumno"
+            class="form-control"
+            formControlName="Nombre"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Nombre'].errors}"
+          />
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="apellido"
+          >Apellido</label>
+          <input
+            id="apellido"
+            type="text"
+            placeholder="Ingrese el apellido del alumno"
+            class="form-control"
+            formControlName="Apellido"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Apellido'].errors}"
+          />
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="email"
+          >Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Ingrese el email del alumno"
+            class="form-control"
+            formControlName="Email"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Email'].errors}"
+          />
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="dni"
+          >DNI</label>
+          <input
+            id="dni"
+            type="number"
+            placeholder="Ingrese el DNI del alumno"
+            class="form-control"
+            formControlName="Dni"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Dni'].errors}"
+          />
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="telefono"
+          >Teléfono</label>
+          <input
+            id="telefono"
+            type="text"
+            placeholder="Ingrese el número telefónico"
+            class="form-control"
+            formControlName="Telefono"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Telefono'].errors}"
+          />
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="legajo"
+          >Legajo</label>
+          <input
+            id="legajo"
+            type="number"
+            placeholder="Ingrese el legajo del alumno"
+            class="form-control"
+            formControlName="Legajo"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Legajo'].errors}"
+          />
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="fecha-nacimiento"
+          >Fecha de nacimineto</label>
+          <input
+            id="fecha-nacimiento"
+            type="date"
+            class="form-control"
+            formControlName="FechaDeNacimiento"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['FechaDeNacimiento'].errors}"
+          />
+        </div>
+
+        <label
+          class="form-label block"
+        >Facultad Regional</label>
+        <div class="form-group mb-2">
+          <div class="form-check form-check-inline" *ngFor="let n of facultades">
+            <input
+              name="Localidad"
+              formControlName="Localidad"
+              class="form-check-input"
+              type="radio"
+              [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Localidad'].errors}"
+              [value]="n"
+              [id]="n.codigo"
+            >
+            <label
+              class="form-check-label"
+              [for]="n.codigo"
+            >{{n.nombre}}</label>
+          </div>
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="disciplina"
+          >Disciplina</label>
+          <select
+            id="disciplina"
+            class="form-select"
+            formControlName="Disciplina"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Disciplina'].errors}"
+          >
+            <option value="">- Selecione -</option>
+            <option *ngFor="let n of disciplinas" [ngValue]="n">
+              {{n.nombre}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="nacionalidad"
+          >Nacionalidad</label>
+          <select
+            id="nacionalidad"
+            class="form-select"
+            formControlName="Nacionalidad"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Nacionalidad'].errors}"
+          >
+            <option value="">- Selecione -</option>
+            <option *ngFor="let n of nacionalidades" [ngValue]="n">
+              {{n.nombre}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group mb-2">
+          <label
+            class="form-label"
+            for="rol"
+          >Rol</label>
+          <select
+            id="rol"
+            class="form-select"
+            formControlName="Rol"
+            [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Rol'].errors}"
+          >
+            <option value="">- Selecione -</option>
+            <option *ngFor="let n of roles" [ngValue]="n">
+              {{n.nombre}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="submit"
+            value="Registrar jugador"
+            class="btn btn-primary mt-2 w-100"
+          />
+        </div>
+
+        <button
+          (click)="onVolver()"
+          class="p-2 mt-3 btn btn-secondary w-25"
+        >Volver al inicio</button>
+    </div>
+  </form>
+</div>
