@@ -9,7 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NuevoJugadorComponent } from './nuevo-jugador/nuevo-jugador.component';
 import { JugadoresComponent } from './jugadores/jugadores.component';
 import { HttpClientModule} from "@angular/common/http";
-import { EditarJugadorComponent } from './editar-jugador/editar-jugador.component'
+import { EditarJugadorComponent } from './editar-jugador/editar-jugador.component';
+import { DisciplinasComponent } from './disciplinas/disciplinas.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { EditarJugadorComponent } from './editar-jugador/editar-jugador.componen
     HomeComponent,
     NuevoJugadorComponent,
     JugadoresComponent,
-    EditarJugadorComponent
+    EditarJugadorComponent,
+    DisciplinasComponent
   ],
   imports: [
     BrowserModule,

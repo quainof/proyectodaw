@@ -84,13 +84,16 @@ export class JugadoresComponent implements OnInit {
     this.onFiltrar()
   }
 
-  editar(id: number) {
+  onEditar(id: number) {
     this.router.navigate([`editar-jugador/${id}`])
   }
 
   async onEliminar(id: number){
-    await this.servicioJugadores.eliminarJugador(id)
-    this.onFiltrar()
+    if (window.confirm("¿Seguro que desea eliminar este jugador?")) {
+      await this.servicioJugadores.eliminarJugador(id)
+      this.onFiltrar()
+    }
+
   }
 
 }

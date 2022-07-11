@@ -72,7 +72,7 @@ export class NuevoJugadorComponent implements OnInit {
   }
 
   onVolver() {
-    this.router.navigate(['inicio'])
+    this.router.navigate(['jugadores'])
   }
 
   enviado = false

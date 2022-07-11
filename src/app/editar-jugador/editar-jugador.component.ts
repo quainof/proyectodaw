@@ -56,26 +56,35 @@ export class EditarJugadorComponent implements OnInit {
     private activatedRoute: ActivatedRoute
     ) { }
 
-  ngOnInit(): void {
-
-    this.obtenerJugador()
-    this.servicioNacionalidades.getNacionalidades().then( //.subscribe((rta) => {this.nacionalidades = rta})
+  async ngOnInit(){
+    await this.servicioNacionalidades.getNacionalidades().then( //.subscribe((rta) => {this.nacionalidades = rta})
       data => { this.nacionalidades = data; },
       error => { console.log(error)}
     )
-    this.servicioDisciplinas.getDisciplinas().then(
+    await this.servicioDisciplinas.getDisciplinas().then(
       data => { this.disciplinas = data; },
       error => { console.log(error)}
     )
-    this.servicioFacultades.getFacultades().then(
+    await this.servicioFacultades.getFacultades().then(
       data => { this.facultades = data; },
       error => { console.log(error)}
     )
-    this.servicioRoles.getRoles().then(
+    await this.servicioRoles.getRoles().then(
       data => { this.roles = data; },
       error => { console.log(error)}
     )
 
+    await this.obtenerJugador()
+    this.registroForm.setValue(this.jugador)
+
+    const rolCombo = this.roles.filter(rol => rol.id === this.jugador.rol.id)[0]
+    const facOption = this.facultades.filter(facultad => facultad.id === this.jugador.facultad.id)[0]
+    const disCombo = this.disciplinas.filter(disci => disci.id === this.jugador.disciplina.id)[0]
+    const nacCombo = this.nacionalidades.filter(nacion => nacion.id === this.jugador.nacionalidad.id)[0]
+    this.registroForm.controls['rol'].setValue(rolCombo)
+    this.registroForm.controls['facultad'].setValue(facOption)
+    this.registroForm.controls['disciplina'].setValue(disCombo)
+    this.registroForm.controls['nacionalidad'].setValue(nacCombo)
   }
 
   async obtenerJugador(){
@@ -84,19 +93,14 @@ export class EditarJugadorComponent implements OnInit {
       data => {
         this.jugador = data;
         this.jugador.fechaNacimiento = this.jugador.fechaNacimiento.split("T")[0]
-        console.log(this.jugador)
-
-        this.registroForm.setValue(this.jugador)
-
       },
       error => { console.log(error)}
     )
-    //console.log(this.jugador)
   }
 
 
   onVolver() {
-    this.router.navigate(['inicio'])
+    this.router.navigate(['jugadores'])
   }
 
   enviado = false
@@ -132,7 +136,7 @@ export class EditarJugadorComponent implements OnInit {
     //console.log(jugadorNuevo)
 
     await this.servicioJugador.editarJugador(jugadorNuevo)
-    //this.router.navigate(['jugadores'])
+    this.router.navigate(['jugadores'])
   }
 
 }

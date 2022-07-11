@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["jugadores"])
   }
 
-  onNuevoJugadorClick() {
-    this.router.navigate(["nuevo-jugador"])
+  onDisciplinasClick() {
+    this.router.navigate(["disciplinas"])
   }
 
 }

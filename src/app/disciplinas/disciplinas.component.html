@@ -1,0 +1,57 @@
+<h1 class="text-center mt-5">Listado de disciplinas</h1>
+<div class="container col-lg-8 border mx-auto p-2 mt-2">
+  <form
+    [formGroup]="filtrarDisciplinasForm"
+    (ngSubmit)="onFiltrar()"
+  >
+    <div class="d-flex gap-2 align-items-center m-2">
+      <label
+        for="filtro"
+        class="form-label m-0 mx-2"
+      >Filtro</label>
+      <input
+        id="filtro"
+        type="text"
+        formControlName="filtro"
+        class="form-control"
+      >
+      <input
+        type="submit"
+        class="p-auto btn btn-secondary w-25"
+        value="Filtrar"
+      />
+
+      <input
+        type="button"
+        class="p-auto btn btn-secondary"
+        value="Limpiar"
+        (click) = "onLimpiarFiltro()"
+      />
+
+    </div>
+
+    <h4 class="mt-5">Tabla de disciplinas</h4>
+    <table class="table w-full">
+      <thead>
+        <tr>
+          <th scope="col" class="w-25">Código</th>
+          <th scope="col" class="w-25">Nombre</th>
+          <th scope="col" class="w-50">Descripcón</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let n of disciplinas">
+          <th scope="row">{{n.codigo}}</th>
+          <td>{{n.nombre}}</td>
+          <td>{{n.descripcion}}</td>
+          <td>
+            <div class="d-flex gap-2">
+              <button class="btn btn-success" (click)="onEditar(n.id)">Editar</button>
+              <button class="btn btn-danger" (click)="onEliminar(n.id)">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

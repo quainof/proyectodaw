@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { NuevoJugadorComponent } from './nuevo-jugador/nuevo-jugador.component';
 import { JugadoresComponent } from './jugadores/jugadores.component';
 import { EditarJugadorComponent } from './editar-jugador/editar-jugador.component';
+import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'nuevo-jugador', component: NuevoJugadorComponent },
   { path: 'jugadores', component: JugadoresComponent},
   { path: 'editar-jugador/:id', component: EditarJugadorComponent},
+  { path: 'disciplinas', component: DisciplinasComponent},
   { path: "**", component: LoginComponent}
 ];
 
