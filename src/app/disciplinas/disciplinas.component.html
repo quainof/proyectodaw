@@ -29,29 +29,41 @@
       />
 
     </div>
-
-    <h4 class="mt-5">Tabla de disciplinas</h4>
-    <table class="table w-full">
-      <thead>
-        <tr>
-          <th scope="col" class="w-25">Código</th>
-          <th scope="col" class="w-25">Nombre</th>
-          <th scope="col" class="w-50">Descripcón</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let n of disciplinas">
-          <th scope="row">{{n.codigo}}</th>
-          <td>{{n.nombre}}</td>
-          <td>{{n.descripcion}}</td>
-          <td>
-            <div class="d-flex gap-2">
-              <button class="btn btn-success" (click)="onEditar(n.id)">Editar</button>
-              <button class="btn btn-danger" (click)="onEliminar(n.id)">Eliminar</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </form>
+
+  <h4 class="mt-5">Tabla de disciplinas</h4>
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th scope="col" class="w-25">Código</th>
+        <th scope="col" class="w-25">Nombre</th>
+        <th scope="col" class="w-50">Descripcón</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let n of disciplinas">
+        <th scope="row">{{n.codigo}}</th>
+        <td>{{n.nombre}}</td>
+        <td>{{n.descripcion}}</td>
+        <td>
+          <div class="d-flex gap-2">
+            <button class="btn btn-success" (click)="onEditar(n.id)">Editar</button>
+            <button class="btn btn-danger" (click)="onEliminar(n.id)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="d-flex gap-2">
+    <button
+      (click)="onNuevaDisciplinaClick()"
+      class="p-2 btn btn-primary mt-2"
+    >Agregar disciplina</button>
+    <button
+      (click)="onVolver()"
+      class="p-2 btn btn-secondary mt-2"
+    >Volver al inicio</button>
+  </div>
 </div>

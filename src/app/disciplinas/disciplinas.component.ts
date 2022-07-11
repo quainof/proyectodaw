@@ -54,4 +54,12 @@ export class DisciplinasComponent implements OnInit {
     this.onFiltrar()
   }
 
+  onVolver() {
+    this.router.navigate(['inicio'])
+  }
+
+  onNuevaDisciplinaClick() {
+    this.router.navigate(["nueva-disciplina"])
+  }
+
 }

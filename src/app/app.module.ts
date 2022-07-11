@@ -10,7 +10,8 @@ import { NuevoJugadorComponent } from './nuevo-jugador/nuevo-jugador.component';
 import { JugadoresComponent } from './jugadores/jugadores.component';
 import { HttpClientModule} from "@angular/common/http";
 import { EditarJugadorComponent } from './editar-jugador/editar-jugador.component';
-import { DisciplinasComponent } from './disciplinas/disciplinas.component'
+import { DisciplinasComponent } from './disciplinas/disciplinas.component';
+import { NuevaDisciplinaComponent } from './nueva-disciplina/nueva-disciplina.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DisciplinasComponent } from './disciplinas/disciplinas.component'
     NuevoJugadorComponent,
     JugadoresComponent,
     EditarJugadorComponent,
-    DisciplinasComponent
+    DisciplinasComponent,
+    NuevaDisciplinaComponent
   ],
   imports: [
     BrowserModule,
