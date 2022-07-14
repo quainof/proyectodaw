@@ -9,15 +9,16 @@ export class DisciplinasService {
 
   constructor() { }
 
-  async guardarDisciplinas(disciplina:Disciplina) : Promise<Disciplina[]> {
+  async guardarDisciplinas(disciplina:Disciplina) : Promise<Disciplina> {
     const rta = await axios.post(`http://localhost:8080/disciplinas`,disciplina)
     //console.log(rta)
     return rta.data
   }
 
-  async editarDisciplina(disciplina: Disciplina){
+  async editarDisciplina(disciplina: Disciplina) : Promise<Disciplina>{
     const rta = await axios.put(`http://localhost:8080/disciplinas`, disciplina)
     //console.log(rta)
+    return rta.data
   }
 
   async getDisciplinas() : Promise<Disciplina[]> {

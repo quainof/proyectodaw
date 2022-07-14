@@ -10,16 +10,18 @@ export class JugadorService {
 
   constructor() { }
 
-  async guardarJugador(jugador:Jugador){
+  async guardarJugador(jugador:Jugador): Promise<Jugador>{
     const rta = await axios.post("http://localhost:8080/jugadores", jugador)
     //console.log(rta)
     //console.log(jugador)
+    return rta.data;
   }
 
-  async editarJugador(jugador: Jugador){
+  async editarJugador(jugador: Jugador): Promise<Jugador>{
     //console.log(jugador)
     const rta = await axios.put("http://localhost:8080/jugadores", jugador)
     //console.log(rta)
+    return rta.data;
   }
 
   async getJugadores() : Promise<Jugador[]> {
