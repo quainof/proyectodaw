@@ -17,7 +17,7 @@ export class DisciplinasService {
 
   async editarDisciplina(disciplina: Disciplina){
     const rta = await axios.put(`http://localhost:8080/disciplinas`, disciplina)
-    console.log(rta)
+    //console.log(rta)
   }
 
   async getDisciplinas() : Promise<Disciplina[]> {
@@ -28,7 +28,7 @@ export class DisciplinasService {
 
   async getDisciplina(id: number) : Promise<Disciplina> {
     const rta = await axios.get(`http://localhost:8080/disciplinas/${id}`)
-    console.log(rta)
+    //console.log(rta)
     return rta.data
   }
 

@@ -70,12 +70,8 @@ export class JugadoresComponent implements OnInit {
   onFiltrar(){
     //alert(this.filtrarJugadoresForm.controls["filtro"].value)
     this.servicioJugadores.getJugadores().then(
-      (data) =>{
-        this.jugadores = data;
-    },
-      (error) =>{
-        console.log(error)
-      }
+      (data) =>{ this.jugadores = data;},
+      (error) =>{ console.log(error)}
     )
   }
 
