@@ -13,9 +13,9 @@ export class NuevaDisciplinaComponent implements OnInit {
 
   registroForm = this.formBuilder.group(
     {
-      Codigo: ["", [Validators.required, Validators.minLength(2)]],
-      Nombre: ["", [Validators.required, Validators.minLength(3)]],
-      Descripcion: ["",]
+      codigo: ["", [Validators.required, Validators.minLength(2)]],
+      nombre: ["", [Validators.required, Validators.minLength(3)]],
+      descripcion: [""]
 
       // [ngClass]="{'is-invalid' : registroForm.controls['Nombre'].touched && registroForm.controls['Nombre'].errors!['required']}"
     }
@@ -38,15 +38,15 @@ export class NuevaDisciplinaComponent implements OnInit {
   async onSubmit() {
     this.enviado = true
 
-    if(this.registroForm.controls['Codigo'].errors) return
-    if(this.registroForm.controls['Nombre'].errors) return
-    if(this.registroForm.controls['Descripcion'].errors) return
+    if(this.registroForm.controls['nombre'].errors) return
+    if(this.registroForm.controls['codigo'].errors) return
+    if(this.registroForm.controls['descripcion'].errors) return
 
     const disciplina = new Disciplina(
       0,
-      this.registroForm.controls["Nombre"].value,
-      this.registroForm.controls["Codigo"].value,
-      this.registroForm.controls["Descripcion"].value,
+      this.registroForm.controls["nombre"].value,
+      this.registroForm.controls["codigo"].value,
+      this.registroForm.controls["descripcion"].value,
 
     )
 

@@ -5,13 +5,13 @@
       (ngSubmit)="onSubmit()"
     >
       <h1 class="text-center">Agregar Nueva Disciplina</h1>
-  
+
       <div class="card-header">
         <b>Cargue los datos de la disciplina</b>
       </div>
-  
+
       <div class="card-body">
-  
+
           <div class="form-group mb-2">
             <label
               class="form-label"
@@ -22,11 +22,11 @@
               type="text"
               placeholder="Ingrese el código del deporte"
               class="form-control"
-              formControlName="Codigo"
-              [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Codigo'].errors}"
+              formControlName="codigo"
+              [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['codigo'].errors}"
             />
           </div>
-  
+
           <div class="form-group mb-2">
             <label
               class="form-label"
@@ -37,8 +37,8 @@
               type="text"
               placeholder="Ingrese el nombre del deporte"
               class="form-control"
-              formControlName="Nombre"
-              [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Nombre'].errors}"
+              formControlName="nombre"
+              [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['nombre'].errors}"
             />
           </div>
 
@@ -52,11 +52,11 @@
               type="text"
               placeholder="Ingrese una descripción"
               class="form-control"
-              formControlName="Descripcion"
-              [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['Descripcion'].errors}"
+              formControlName="descripcion"
+              [ngClass]="{'is-invalid' : enviado===true && registroForm.controls['descripcion'].errors}"
             />
-          </div> 
-  
+          </div>
+
           <div class="form-group">
             <input
               type="submit"
@@ -64,7 +64,7 @@
               class="btn btn-primary mt-2 w-100"
             />
           </div>
-  
+
           <button
             (click)="onVolver()"
             class="p-2 mt-3 btn btn-secondary w-25"

@@ -15,9 +15,10 @@ export class EditarDisciplinaComponent implements OnInit {
 
   registroForm = this.formBuilder.group(
     {
-      Codigo: ["", [Validators.required, Validators.minLength(2)]],
-      Nombre: ["", [Validators.required, Validators.minLength(3)]],
-      Descripcion: ["",]
+      id: ["", []],
+      codigo: ["", [Validators.required, Validators.minLength(2)]],
+      nombre: ["", [Validators.required, Validators.minLength(3)]],
+      descripcion: ["",]
 
       // [ngClass]="{'is-invalid' : registroForm.controls['Nombre'].touched && registroForm.controls['Nombre'].errors!['required']}"
     }
@@ -29,20 +30,13 @@ export class EditarDisciplinaComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
   async ngOnInit(){
-    await this.servicioDisciplinas.getDisciplinas().then(
-      data => { this.disciplina = data; },
-      error => { console.log(error)}
-    )
 
     await this.obtenerDisciplina()
     this.registroForm.setValue(this.disciplina)
+
     //this.registroForm.controls['Codigo'].setValue(this.disciplina.codigo)
     //this.registroForm.controls['Nombre'].setValue(this.disciplina.nombre)
     //this.registroForm.controls['Descripcion'].setValue(this.disciplina.descripcion)
-    /*this.registroForm.controls['rol'].setValue(rolCombo)
-    this.registroForm.controls['facultad'].setValue(facOption)
-    this.registroForm.controls['disciplina'].setValue(disCombo)
-    this.registroForm.controls['nacionalidad'].setValue(nacCombo)*/
   }
 
   async obtenerDisciplina(){
@@ -64,15 +58,15 @@ export class EditarDisciplinaComponent implements OnInit {
   async onSubmit() {
     this.enviado = true
 
-    if(this.registroForm.controls['Codigo'].errors) return
-    if(this.registroForm.controls['Nombre'].errors) return
-    if(this.registroForm.controls['Descripcion'].errors) return
+    if(this.registroForm.controls['nombre'].errors) return
+    if(this.registroForm.controls['codigo'].errors) return
+    if(this.registroForm.controls['descripcion'].errors) return
 
     const disciplina = new Disciplina(
       this.disciplina.id,
-      this.registroForm.controls["Nombre"].value,
-      this.registroForm.controls["Codigo"].value,
-      this.registroForm.controls["Descripcion"].value,
+      this.registroForm.controls["nombre"].value,
+      this.registroForm.controls["codigo"].value,
+      this.registroForm.controls["descripcion"].value,
 
     )
 
