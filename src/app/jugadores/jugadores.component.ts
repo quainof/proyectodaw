@@ -77,6 +77,9 @@ export class JugadoresComponent implements OnInit {
 
   onLimpiarFiltro() {
     this.filtrarJugadoresForm.controls["filtro"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
     this.onFiltrar()
   }
 
