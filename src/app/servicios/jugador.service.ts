@@ -35,7 +35,7 @@ export class JugadorService {
 
   async getJugador(id: number): Promise<Jugador> {
     const rta = await axios.get(`http://localhost:8080/jugadores/${id}`)
-    //console.log(rta)
+    console.log(rta)
     return rta.data;
   }
 

@@ -32,7 +32,7 @@ export class DisciplinasComponent implements OnInit {
   }
 
   onEditar(id: number) {
-    //this.router.navigate([`editar-jugador/${id}`])
+    this.router.navigate([`editar-disciplina/${id}`])
   }
 
   async onEliminar(id: number){
