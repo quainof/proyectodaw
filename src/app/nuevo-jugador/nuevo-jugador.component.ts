@@ -11,6 +11,8 @@ import { FacultadesService } from '../servicios/facultades.service';
 import { JugadorService } from '../servicios/jugador.service';
 import { NacionalidadesService } from '../servicios/nacionalidades.service';
 import { RolesService } from '../servicios/roles.service';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-nuevo-jugador',
@@ -97,7 +99,7 @@ export class NuevoJugadorComponent implements OnInit {
       this.registroForm.controls["Apellido"].value,
       this.registroForm.controls["Dni"].value,
       this.registroForm.controls["Legajo"].value,
-      this.registroForm.controls["FechaDeNacimiento"].value,
+      moment(this.registroForm.controls["FechaDeNacimiento"].value).toDate(),
       this.registroForm.controls["Email"].value,
       this.registroForm.controls["Telefono"].value,
       this.registroForm.controls["Localidad"].value,

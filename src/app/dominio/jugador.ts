@@ -9,7 +9,7 @@ export class Jugador {
   apellido: string;
   dni: string;
   legajo: number;
-  fechaNacimiento: Date;
+  fechaNacimiento: any;
   email: string;
   telefono: string;
   facultad : Facultad;
@@ -19,7 +19,7 @@ export class Jugador {
 
 
 
-  constructor(id: number, nombre: string, apellido: string, dni: string, legajo: number, fechaNacimiento: Date, email: string, telefono: string, facultad : Facultad, rol: Rol, disciplina: Disciplina, nacionalidad: Nacionalidad) {
+  constructor(id: number, nombre: string, apellido: string, dni: string, legajo: number, fechaNacimiento: any, email: string, telefono: string, facultad : Facultad, rol: Rol, disciplina: Disciplina, nacionalidad: Nacionalidad) {
     this.id = id;
     this.nombre = nombre;
     this.apellido = apellido;

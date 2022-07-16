@@ -11,6 +11,9 @@ import { FacultadesService } from '../servicios/facultades.service';
 import { JugadorService } from '../servicios/jugador.service';
 import { NacionalidadesService } from '../servicios/nacionalidades.service';
 import { RolesService } from '../servicios/roles.service';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -125,7 +128,7 @@ export class EditarJugadorComponent implements OnInit {
       this.registroForm.controls["apellido"].value,
       this.registroForm.controls["dni"].value,
       this.registroForm.controls["legajo"].value,
-      this.registroForm.controls["fechaNacimiento"].value,
+      moment(this.registroForm.controls["fechaNacimiento"].value).toDate(),
       this.registroForm.controls["email"].value,
       this.registroForm.controls["telefono"].value,
       this.registroForm.controls["facultad"].value,
