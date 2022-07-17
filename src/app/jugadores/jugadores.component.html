@@ -2,86 +2,97 @@
 <div class="container col-lg-8 border mx-auto p-2 mt-2">
   <form
     [formGroup]="filtrarJugadoresForm"
-    (ngSubmit)="onFiltrar()"
   >
     <h4 for="filtro">Filtros</h4>
 
     <label
       for="filtro"
-      class="form-label"
-      >Filtro textual</label>
-    <input
-      id="filtro"
-      type="text"
-      formControlName="filtro"
-      class="form-control"
-    >
-
-    <div class="d-flex gap-3 my-3">
+      class="form-label mx-2"
+    >Filtro por nombre y apellido</label>
+    <div class="d-flex gap-2 align-items-center m-2 w-100">
       <input
-        type="submit"
-        class="p-1 btn btn-secondary mt-2 w-25"
-        value="Filtrar"
-      />
-
+        id="filtro"
+        type="text"
+        formControlName="filtro"
+        class="form-control w-75"
+      >
       <input
         type="button"
-        class="p-1 btn btn-secondary mt-2 w-25"
-        value="Limpiar"
-        (click) = "onLimpiarFiltro()"
+        class="p-auto btn btn-secondary w-25 mx-4"
+        value="Filtrar por texto"
+        (click) = "onFiltrarTexto()"
       />
     </div>
 
-    <div class="d-flex gap-2 w-100">
+    <div class="d-flex gap-2 align-items-center mx-2 w-100">
+      <label
+        class="form-label w-25"
+        for="disciplina"
+      >Disciplina</label>
+      <label
+        class="form-label w-25"
+        for="localidad"
+      >Facultad</label>
+      <label
+        class="form-label w-25"
+        for="nacionalidad"
+      >Nacionalidad</label>
+      <div
+        class="p-auto w-25 mx-4"
+      ></div>
+    </div>
+
+    <div class="d-flex gap-2 align-items-center mx-2 w-100">
       <div class="w-25">
-        <label
-          class="form-label"
-          for="disciplina"
-        >Disciplina</label>
         <select
           id="disciplina"
           class="form-select"
           formControlName="filtroDisciplina"
         >
           <option value="">- Selecione -</option>
-          <option *ngFor="let n of disciplinas" [value]="n.codigo">
+          <option *ngFor="let n of disciplinas" [ngValue]="n">
             {{n.nombre}}
           </option>
         </select>
       </div>
       <div class="w-25">
-        <label
-          class="form-label"
-          for="localidad"
-        >Facultad</label>
         <select
           id="localidad"
           class="form-select"
           formControlName="filtroFacultad"
         >
           <option value="">- Selecione -</option>
-          <option *ngFor="let n of facultades" [value]="n.codigo">
+          <option *ngFor="let n of facultades" [ngValue]="n">
             {{n.nombre}}
           </option>
         </select>
       </div>
-      <div class="w-50">
-        <label
-          class="form-label"
-          for="nacionalidad"
-        >Nacionalidad</label>
+      <div class="w-25">
         <select
           id="nacionalidad"
           class="form-select"
           formControlName="filtroNacionalidad"
         >
           <option value="">- Selecione -</option>
-          <option *ngFor="let n of nacionalidades" [value]="n.id">
+          <option *ngFor="let n of nacionalidades" [ngValue]="n">
             {{n.nombre}}
           </option>
         </select>
       </div>
+      <input
+        type="button"
+        class="p-auto btn btn-secondary w-25 mx-4"
+        value="Filtrar por selección"
+        (click) = "onFiltrarCombos()"
+      />
     </div>
+
+    <input
+      type="button"
+      class="p-auto btn btn-secondary mx-2 my-4 w-25"
+      value="Limpiar filtros"
+      (click) = "onLimpiarFiltro()"
+    />
   </form>
 
   <h4 class="mt-5">Tabla de jugadores</h4>

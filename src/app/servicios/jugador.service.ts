@@ -30,6 +30,20 @@ export class JugadorService {
     return rta.data;
   }
 
+  async getJugadoresTexto(texto: String) : Promise<Jugador[]> {
+    const url = `http://localhost:8080/jugadores/texto?texto=${texto}`
+    console.log(url)
+    const rta = await axios.get(url)
+    return rta.data;
+  }
+
+  async getJugadoresCombos(dis: String, fac: String, nac:String) : Promise<Jugador[]> {
+    const url = `http://localhost:8080/jugadores/combos?dis=${dis}&fac=${fac}&nac=${nac}`
+    console.log(url)
+    const rta = await axios.get(url)
+    return rta.data;
+  }
+
   async eliminarJugador(id: number) : Promise<void>{
     const rta = await axios.delete(`http://localhost:8080/jugadores/${id}`)
     //console.log(rta)

@@ -53,7 +53,38 @@ export class JugadoresComponent implements OnInit {
       data => { this.nacionalidades = data; },
       error => { console.log(error)}
     )
+    this.obtenerJugadores()
+  }
+
+  obtenerJugadores(){
     this.servicioJugadores.getJugadores().then(
+      data => { this.jugadores = data; },
+      error => { console.log(error)}
+    )
+  }
+
+  onLimpiarFiltro() {
+    this.filtrarJugadoresForm.controls["filtro"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
+    this.obtenerJugadores()
+  }
+
+  onFiltrarCombos(){
+    const dis = this.filtrarJugadoresForm.controls["filtroDisciplina"].value.nombre || ""
+    const fac = this.filtrarJugadoresForm.controls["filtroFacultad"].value.nombre || ""
+    const nac = this.filtrarJugadoresForm.controls["filtroNacionalidad"].value.nombre || ""
+    console.log(dis + fac + nac)
+    this.servicioJugadores.getJugadoresCombos(dis, fac, nac).then(
+      data => { this.jugadores = data; },
+      error => { console.log(error)}
+    )
+  }
+
+  onFiltrarTexto(){
+    const texto = this.filtrarJugadoresForm.controls["filtro"].value
+    this.servicioJugadores.getJugadoresTexto(texto).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
@@ -67,22 +98,6 @@ export class JugadoresComponent implements OnInit {
     this.router.navigate(["nuevo-jugador"])
   }
 
-  onFiltrar(){
-    //alert(this.filtrarJugadoresForm.controls["filtro"].value)
-    this.servicioJugadores.getJugadores().then(
-      (data) =>{ this.jugadores = data;},
-      (error) =>{ console.log(error)}
-    )
-  }
-
-  onLimpiarFiltro() {
-    this.filtrarJugadoresForm.controls["filtro"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
-    this.onFiltrar()
-  }
-
   onEditar(id: number) {
     this.router.navigate([`editar-jugador/${id}`])
   }
@@ -90,7 +105,7 @@ export class JugadoresComponent implements OnInit {
   async onEliminar(id: number){
     if (window.confirm("¿Seguro que desea eliminar este jugador?")) {
       await this.servicioJugadores.eliminarJugador(id)
-      this.onFiltrar()
+      this.onLimpiarFiltro()
     }
 
   }
