@@ -38,6 +38,7 @@ export class JugadoresComponent implements OnInit {
   nacionalidades: Nacionalidad[] = []
   jugadores: Jugador[] = []
   filtrarJugadoresForm: FormGroup;
+  ultimoFiltro: String = ""
 
 
   ngOnInit(): void {
@@ -69,17 +70,18 @@ export class JugadoresComponent implements OnInit {
     this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
     this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
     this.obtenerJugadores()
+    this.ultimoFiltro = ""
   }
 
   onFiltrarCombos(){
     const dis = this.filtrarJugadoresForm.controls["filtroDisciplina"].value.nombre || ""
     const fac = this.filtrarJugadoresForm.controls["filtroFacultad"].value.nombre || ""
     const nac = this.filtrarJugadoresForm.controls["filtroNacionalidad"].value.nombre || ""
-    console.log(dis + fac + nac)
     this.servicioJugadores.getJugadoresCombos(dis, fac, nac).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
+    this.ultimoFiltro = "c"
   }
 
   onFiltrarTexto(){
@@ -88,6 +90,7 @@ export class JugadoresComponent implements OnInit {
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
+    this.ultimoFiltro = "t"
   }
 
   onVolver() {
@@ -105,9 +108,10 @@ export class JugadoresComponent implements OnInit {
   async onEliminar(id: number){
     if (window.confirm("¿Seguro que desea eliminar este jugador?")) {
       await this.servicioJugadores.eliminarJugador(id)
-      this.onLimpiarFiltro()
+      if(this.ultimoFiltro==="") this.onLimpiarFiltro()
+      if(this.ultimoFiltro==="c") this.onFiltrarCombos()
+      if(this.ultimoFiltro==="t") this.onFiltrarTexto()
     }
-
   }
 
 }

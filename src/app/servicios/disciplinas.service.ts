@@ -1,46 +1,55 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Disciplina } from '../dominio/disciplina';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DisciplinasService {
 
-  constructor() { }
+  constructor(private toastSvc:ToastrService) { }
 
-  async guardarDisciplinas(disciplina:Disciplina) : Promise<Disciplina> {
-    const rta = await axios.post(`http://localhost:8080/disciplinas`,disciplina)
-    //console.log(rta)
-    return rta.data
+  async guardarDisciplinas(disciplina:Disciplina) : Promise<void> { // Promise<Disciplina> //return rta.data
+    try {
+      const rta = await axios.post(`http://localhost:8080/disciplinas`,disciplina)
+      this.toastSvc.success(`Se agregó con éxito la disciplina ${rta.data.nombre}`)
+    } catch (error) {
+      this.toastSvc.error("Error: No fue posible agregar la disciplina")
+    }
   }
 
-  async editarDisciplina(disciplina: Disciplina) : Promise<Disciplina>{
-    const rta = await axios.put(`http://localhost:8080/disciplinas`, disciplina)
-    //console.log(rta)
-    return rta.data
+  async editarDisciplina(disciplina: Disciplina) : Promise<void> { // Promise<Disciplina> //return rta.data
+    try {
+      const rta = await axios.put(`http://localhost:8080/disciplinas`, disciplina)
+      this.toastSvc.success(`Se editó con éxito la disciplina ${rta.data.nombre}`)
+    } catch (error) {
+      this.toastSvc.error("Error: No fue posible editar la disciplina")
+    }
   }
 
   async getDisciplinas() : Promise<Disciplina[]> {
     const rta = await axios.get(`http://localhost:8080/disciplinas`)
-    //console.log(rta)
     return rta.data
   }
 
   async getDisciplina(id: number) : Promise<Disciplina> {
     const rta = await axios.get(`http://localhost:8080/disciplinas/${id}`)
-    //console.log(rta)
     return rta.data
   }
 
   async getDisciplinasFiltro(filtro: String) : Promise<Disciplina[]> {
     const rta = await axios.get(`http://localhost:8080/disciplinas?filtro=${filtro}`)
-    //console.log(rta)
     return rta.data
   }
 
   async eliminarDisciplina(id: number) : Promise<void>{
-    const rta = await axios.delete(`http://localhost:8080/disciplinas/${id}`)
-    //console.log(rta)
+    try {
+      const rta = await axios.delete(`http://localhost:8080/disciplinas/${id}`)
+      this.toastSvc.success("Disciplina eliminada con éxito")
+    } catch (error) {
+      console.log(error)
+      this.toastSvc.error("Error: No es posible eliminar esta disciplina")
+    }
   }
 }

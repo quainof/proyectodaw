@@ -13,6 +13,8 @@ import { EditarJugadorComponent } from './editar-jugador/editar-jugador.componen
 import { DisciplinasComponent } from './disciplinas/disciplinas.component';
 import { NuevaDisciplinaComponent } from './nueva-disciplina/nueva-disciplina.component';
 import { EditarDisciplinaComponent } from './editar-disciplina/editar-disciplina.component'
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { EditarDisciplinaComponent } from './editar-disciplina/editar-disciplina
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
