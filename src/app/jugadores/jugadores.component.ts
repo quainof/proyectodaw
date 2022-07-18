@@ -38,7 +38,12 @@ export class JugadoresComponent implements OnInit {
   nacionalidades: Nacionalidad[] = []
   jugadores: Jugador[] = []
   filtrarJugadoresForm: FormGroup;
+
   ultimoFiltro: String = ""
+
+  paginas: number = 0
+  paginaActual: number = 0
+  paginaNueva: number = 0
 
 
   ngOnInit(): void {
@@ -57,40 +62,47 @@ export class JugadoresComponent implements OnInit {
     this.obtenerJugadores()
   }
 
-  obtenerJugadores(){
-    this.servicioJugadores.getJugadores().then(
+  async obtenerJugadores(){
+    await this.servicioJugadores.getJugadores(this.paginaNueva).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
+    this.ultimoFiltro = ""
+    this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
   }
+
 
   onLimpiarFiltro() {
     this.filtrarJugadoresForm.controls["filtro"].setValue('')
     this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
     this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
     this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
+    this.paginaActual = 0
+    this.paginaNueva = 0
     this.obtenerJugadores()
     this.ultimoFiltro = ""
   }
 
-  onFiltrarCombos(){
+  async onFiltrarCombos(){
     const dis = this.filtrarJugadoresForm.controls["filtroDisciplina"].value.nombre || ""
     const fac = this.filtrarJugadoresForm.controls["filtroFacultad"].value.nombre || ""
     const nac = this.filtrarJugadoresForm.controls["filtroNacionalidad"].value.nombre || ""
-    this.servicioJugadores.getJugadoresCombos(dis, fac, nac).then(
+    await this.servicioJugadores.getJugadoresCombos(dis, fac, nac, this.paginaNueva).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
     this.ultimoFiltro = "c"
+    this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
   }
 
-  onFiltrarTexto(){
+  async onFiltrarTexto(){
     const texto = this.filtrarJugadoresForm.controls["filtro"].value
-    this.servicioJugadores.getJugadoresTexto(texto).then(
+    await this.servicioJugadores.getJugadoresTexto(texto, this.paginaNueva).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
     this.ultimoFiltro = "t"
+    this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
   }
 
   onVolver() {
@@ -112,6 +124,27 @@ export class JugadoresComponent implements OnInit {
       if(this.ultimoFiltro==="c") this.onFiltrarCombos()
       if(this.ultimoFiltro==="t") this.onFiltrarTexto()
     }
+  }
+
+  onPaginaSiguiente(){
+    if(this.paginaActual == this.paginas - 1) return
+    this.paginaNueva = this.paginaActual + 1
+    this.paginaActual = this.paginaNueva
+    console.log(this.ultimoFiltro, this.paginaNueva)
+    if(this.ultimoFiltro = "t") this.onFiltrarTexto()
+    if(this.ultimoFiltro = "c") this.onFiltrarCombos()
+    if(this.ultimoFiltro = "") this.obtenerJugadores()
+
+  }
+
+  onPaginaAnterior(){
+    if(this.paginaActual == 0) return
+    this.paginaNueva = this.paginaActual - 1
+    this.paginaActual = this.paginaNueva
+    console.log(this.ultimoFiltro, this.paginaNueva)
+    if(this.ultimoFiltro = "t") this.onFiltrarTexto()
+    if(this.ultimoFiltro = "c") this.onFiltrarCombos()
+    if(this.ultimoFiltro = "") this.obtenerJugadores()
   }
 
 }

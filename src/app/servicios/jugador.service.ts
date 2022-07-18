@@ -10,6 +10,8 @@ export class JugadorService {
 
   constructor(private toastSvc:ToastrService) { }
 
+  paginas: number = 0
+
   async guardarJugador(jugador:Jugador): Promise<void> { //Promise<Jugador> //return rta.data;
     try {
       const rta = await axios.post("http://localhost:8080/jugadores", jugador)
@@ -33,23 +35,25 @@ export class JugadorService {
     }
   }
 
-  async getJugadores() : Promise<Jugador[]> {
-    const rta = await axios.get("http://localhost:8080/jugadores")
-    return rta.data;
+  async getJugadores(pagina: number) : Promise<Jugador[]> {
+    const rta = await axios.get(`http://localhost:8080/jugadores?pag=${pagina}`)
+    this.paginas = rta.data.totalPages
+    return rta.data.content;
   }
 
-  async getJugadoresTexto(texto: String) : Promise<Jugador[]> {
-    const url = `http://localhost:8080/jugadores/texto?texto=${texto}`
-    console.log(url)
+  async getJugadoresTexto(texto: String, pagina: number) : Promise<Jugador[]> {
+    const url = `http://localhost:8080/jugadores/texto?texto=${texto}&pag=${pagina}`
     const rta = await axios.get(url)
-    return rta.data;
+    this.paginas = rta.data.totalPages
+    return rta.data.content;
   }
 
-  async getJugadoresCombos(dis: String, fac: String, nac:String) : Promise<Jugador[]> {
-    const url = `http://localhost:8080/jugadores/combos?dis=${dis}&fac=${fac}&nac=${nac}`
-    console.log(url)
+  async getJugadoresCombos(dis: String, fac: String, nac:String, pagina: number) : Promise<Jugador[]> {
+    const url = `http://localhost:8080/jugadores/combos?dis=${dis}&fac=${fac}&nac=${nac}&pag=${pagina}`
     const rta = await axios.get(url)
-    return rta.data;
+    this.paginas = rta.data.totalPages
+    console.log(url)
+    return rta.data.content;
   }
 
   async eliminarJugador(id: number) : Promise<void>{
@@ -60,6 +64,10 @@ export class JugadorService {
       console.log(error)
       this.toastSvc.error("Error: No es posible eliminar este jugador")
     }
+  }
+
+  obtenerNumeroPaginas() {
+    return this.paginas
   }
 
 

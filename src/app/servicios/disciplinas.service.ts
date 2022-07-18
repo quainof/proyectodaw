@@ -10,6 +10,8 @@ export class DisciplinasService {
 
   constructor(private toastSvc:ToastrService) { }
 
+  paginas: number = 0
+
   async guardarDisciplinas(disciplina:Disciplina) : Promise<void> { // Promise<Disciplina> //return rta.data
     try {
       const rta = await axios.post(`http://localhost:8080/disciplinas`,disciplina)
@@ -38,9 +40,14 @@ export class DisciplinasService {
     return rta.data
   }
 
-  async getDisciplinasFiltro(filtro: String) : Promise<Disciplina[]> {
-    const rta = await axios.get(`http://localhost:8080/disciplinas?filtro=${filtro}`)
-    return rta.data
+  async getDisciplinasFiltro(filtro: String, pagina: number) : Promise<Disciplina[]> {
+    const rta = await axios.get(`http://localhost:8080/disciplinas?filtro=${filtro}&pag=${pagina}`)
+    this.paginas = rta.data.totalPages
+    return rta.data.content
+  }
+
+  obtenerNumeroPaginas() {
+    return this.paginas
   }
 
   async eliminarDisciplina(id: number) : Promise<void>{
@@ -49,7 +56,7 @@ export class DisciplinasService {
       this.toastSvc.success("Disciplina eliminada con éxito")
     } catch (error) {
       console.log(error)
-      this.toastSvc.error("Error: No es posible eliminar esta disciplina")
+      this.toastSvc.error("Error: No fue posible eliminar esta disciplina")
     }
   }
 }

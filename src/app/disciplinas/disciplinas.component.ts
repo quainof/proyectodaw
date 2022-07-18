@@ -23,12 +23,12 @@ export class DisciplinasComponent implements OnInit {
 
   disciplinas: Disciplina[] = []
   filtrarDisciplinasForm: FormGroup;
+  paginas: number = 0
+  paginaActual: number = 0
+  paginaNueva: number = 0
 
   ngOnInit(): void {
-    this.servicioDisciplinas.getDisciplinasFiltro(this.filtrarDisciplinasForm.controls[`filtro`].value).then(
-      data => { this.disciplinas = data; },
-      error => { console.log(error)}
-    )
+    this.onFiltrar()
   }
 
   onEditar(id: number) {
@@ -42,15 +42,32 @@ export class DisciplinasComponent implements OnInit {
     }
   }
 
+  onPaginaSiguiente(){
+    if(this.paginaActual == this.paginas - 1) return
+    this.paginaNueva = this.paginaActual + 1
+    this.paginaActual = this.paginaNueva
+    this.onFiltrar()
+  }
+
+  onPaginaAnterior(){
+    if(this.paginaActual == 0) return
+    this.paginaNueva = this.paginaActual - 1
+    this.paginaActual = this.paginaNueva
+    this.onFiltrar()
+  }
+
   onFiltrar(){
-    this.servicioDisciplinas.getDisciplinasFiltro(this.filtrarDisciplinasForm.controls[`filtro`].value).then(
+    this.servicioDisciplinas.getDisciplinasFiltro(this.filtrarDisciplinasForm.controls[`filtro`].value, this.paginaNueva).then(
       data => { this.disciplinas = data; },
       error => { console.log(error)}
     )
+    this.paginas = this.servicioDisciplinas.obtenerNumeroPaginas()
   }
 
   onLimpiarFiltro() {
     this.filtrarDisciplinasForm.controls["filtro"].setValue('')
+    this.paginaActual = 0
+    this.paginaNueva = 0
     this.onFiltrar()
   }
 
