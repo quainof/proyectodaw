@@ -87,6 +87,13 @@ export class JugadoresComponent implements OnInit {
     this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
   }
 
+  onClickFiltrarCombos(){
+    this.filtrarJugadoresForm.controls["filtro"].setValue('')
+    this.paginaActual = 0
+    this.paginaNueva = 0
+    this.onFiltrarCombos()
+  }
+
   async onFiltrarCombos(){
     const dis = this.filtrarJugadoresForm.controls["filtroDisciplina"].value.nombre || ""
     const fac = this.filtrarJugadoresForm.controls["filtroFacultad"].value.nombre || ""
@@ -97,7 +104,13 @@ export class JugadoresComponent implements OnInit {
     )
     this.ultimoFiltro = "c"
     this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
-    this.filtrarJugadoresForm.controls["filtro"].setValue('')
+  }
+
+  onClickFiltrarTexto(){
+    this.limpiarCombos()
+    this.paginaActual = 0
+    this.paginaNueva = 0
+    this.onFiltrarTexto()
   }
 
   async onFiltrarTexto(){
@@ -108,7 +121,6 @@ export class JugadoresComponent implements OnInit {
     )
     this.ultimoFiltro = "t"
     this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
-    this.limpiarCombos()
   }
 
   onVolver() {
