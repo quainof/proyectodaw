@@ -40,6 +40,12 @@ export class JugadoresComponent implements OnInit {
   jugadores: Jugador[] = []
   filtrarJugadoresForm: FormGroup;
 
+  ultimoFiltro: String = ""
+
+  paginas: number = 0
+  paginaActual: number = 0
+  paginaNueva: number = 0
+
 
   ngOnInit(): void {
     this.servicioDisciplinas.getDisciplinas().then(
@@ -57,38 +63,52 @@ export class JugadoresComponent implements OnInit {
     this.obtenerJugadores()
   }
 
-  obtenerJugadores(){
-    this.servicioJugadores.getJugadores().then(
+  async obtenerJugadores(){
+    await this.servicioJugadores.getJugadores(this.paginaNueva).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
+    this.ultimoFiltro = ""
+    this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
   }
+
 
   onLimpiarFiltro() {
     this.filtrarJugadoresForm.controls["filtro"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
+    this.limpiarCombos()
+    this.paginaActual = 0
+    this.paginaNueva = 0
     this.obtenerJugadores()
   }
 
-  onFiltrarCombos(){
+  limpiarCombos(){
+    this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
+  }
+
+  async onFiltrarCombos(){
     const dis = this.filtrarJugadoresForm.controls["filtroDisciplina"].value.nombre || ""
     const fac = this.filtrarJugadoresForm.controls["filtroFacultad"].value.nombre || ""
     const nac = this.filtrarJugadoresForm.controls["filtroNacionalidad"].value.nombre || ""
-    console.log(dis + fac + nac)
-    this.servicioJugadores.getJugadoresCombos(dis, fac, nac).then(
+    await this.servicioJugadores.getJugadoresCombos(dis, fac, nac, this.paginaNueva).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
+    this.ultimoFiltro = "c"
+    this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
+    this.filtrarJugadoresForm.controls["filtro"].setValue('')
   }
 
-  onFiltrarTexto(){
+  async onFiltrarTexto(){
     const texto = this.filtrarJugadoresForm.controls["filtro"].value
-    this.servicioJugadores.getJugadoresTexto(texto).then(
+    await this.servicioJugadores.getJugadoresTexto(texto, this.paginaNueva).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
+    this.ultimoFiltro = "t"
+    this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
+    this.limpiarCombos()
   }
 
   onVolver() {
@@ -129,5 +149,25 @@ export class JugadoresComponent implements OnInit {
         })
       }
     })
+  }
+
+  onPaginaSiguiente(){
+    if(this.paginaActual == this.paginas - 1) return
+    this.paginaNueva = this.paginaActual + 1
+    this.paginaActual = this.paginaNueva
+    console.log(this.ultimoFiltro)
+    if(this.ultimoFiltro==="") this.obtenerJugadores()
+    if(this.ultimoFiltro==="c") this.onFiltrarCombos()
+    if(this.ultimoFiltro==="t") this.onFiltrarTexto()
+  }
+
+  onPaginaAnterior(){
+    if(this.paginaActual == 0) return
+    this.paginaNueva = this.paginaActual - 1
+    this.paginaActual = this.paginaNueva
+    console.log(this.ultimoFiltro)
+    if(this.ultimoFiltro==="") this.obtenerJugadores()
+    if(this.ultimoFiltro==="c") this.onFiltrarCombos()
+    if(this.ultimoFiltro==="t") this.onFiltrarTexto()
   }
 }
