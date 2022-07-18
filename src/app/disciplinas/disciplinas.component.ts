@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { DisciplinasService } from '../servicios/disciplinas.service';
 import { Disciplina } from '../dominio/disciplina';
 
@@ -35,11 +36,32 @@ export class DisciplinasComponent implements OnInit {
     this.router.navigate([`editar-disciplina/${id}`])
   }
 
-  async onEliminar(id: number){
-    if (window.confirm("¿Seguro que desea eliminar este jugador?")) {
-      await this.servicioDisciplinas.eliminarDisciplina(id)
-      this.onFiltrar()
-    }
+  async eliminar(id: number){
+    await this.servicioDisciplinas.eliminarDisciplina(id)
+    this.onLimpiarFiltro()
+  }
+  onEliminar(id: number){
+    Swal.fire({
+      title: 'Eliminar',
+      text: "¿Seguro que desea eliminar esta disciplina?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5cb85c',
+      cancelButtonColor: '#d9534f',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eliminar(id)
+        Swal.fire({
+          title: "Disciplina eliminada con exito",
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1250
+        })
+      }
+    })
   }
 
   onFiltrar(){

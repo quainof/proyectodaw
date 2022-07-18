@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { DisciplinasService } from '../servicios/disciplinas.service';
 import { FacultadesService } from '../servicios/facultades.service';
 import { JugadorService } from '../servicios/jugador.service';
@@ -102,12 +103,31 @@ export class JugadoresComponent implements OnInit {
     this.router.navigate([`editar-jugador/${id}`])
   }
 
-  async onEliminar(id: number){
-    if (window.confirm("¿Seguro que desea eliminar este jugador?")) {
-      await this.servicioJugadores.eliminarJugador(id)
-      this.onLimpiarFiltro()
-    }
-
+  async eliminar(id: number){
+    await this.servicioJugadores.eliminarJugador(id)
+    this.onLimpiarFiltro()
   }
-
+  onEliminar(id: number){
+    Swal.fire({
+      title: 'Eliminar',
+      text: "¿Seguro que desea eliminar este jugador?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#5cb85c',
+      cancelButtonColor: '#d9534f',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eliminar(id)
+        Swal.fire({
+          title: "Jugador eliminado con exito",
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1250
+        })
+      }
+    })
+  }
 }

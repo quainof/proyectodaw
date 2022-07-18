@@ -9,63 +9,63 @@
 </head>
 <body>
     <div class="container">
-        <h1>Inicio de sesión</h1>
-        <div class="card">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-              <div class="card-header">
-                  <b>Ingresa tu usuario y contraseña</b>
+        <h1 class="text-center">Inicio de sesión</h1>
+        <div class="d-flex justify-content-center">
+            <div class="card w-100 ">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="card-header text-center">
+                        <b>Ingresa tu usuario y contraseña</b>
+                    </div>
+      
+                    <div class="card-body">
+                        <div class="form-group">
+                          <label
+                              class="form-label"
+                              for="usuario"
+                          >Usuario</label>
+                          <i class="fa-solid fa-house-user p-2"></i>
+                          <input
+                              id="usuario"
+                              type="text"
+                              placeholder="Usuario"
+                              class="form-control"
+                              formControlName="usuario"
+                              [ngClass]="{'is-invalid' : loginForm.controls['usuario'].touched && loginForm.controls['usuario'].errors!['required']}"
+                          />
+                        </div>
+      
+                        <div class="form-group mt-2">
+                          <label
+                              class="form-label"
+                              for="contra"
+                          >Contraseña</label>
+                          <i class="fa-solid fa-key p-2"></i>
+                          <input
+                              id="contra"
+                              type="text"
+                              placeholder="Contraseña"
+                              class="form-control"
+                              formControlName="password"
+                              [ngClass]="{'is-invalid' : loginForm.controls['password'].touched && loginForm.controls['password'].errors!['required']}"
+                          />
+                        </div>
+      
+                        <div class="form-group">
+                        <input
+                            type="submit"
+                            value="Iniciar Sesión"
+                            class="btn btn-primary mt-3 w-100"
+                        />
+                        </div>
+                    </div>
+                </form>
               </div>
-
-              <div class="card-body">
-                  <div class="form-group">
-                  <label
-                      class="form-label"
-                      for="usuario"
-                  >Usuario</label>
-                  <i class="fa-solid fa-house-user"></i>
-                  <input
-                      id="usuario"
-                      type="text"
-                      placeholder="Usuario"
-                      class="form-control"
-                      formControlName="usuario"
-                      [ngClass]="{'is-invalid' : loginForm.controls['usuario'].touched && loginForm.controls['usuario'].errors!['required']}"
-                  />
-                  </div>
-
-                  <div class="form-group">
-                  <label
-                      class="form-label"
-                      for="contra"
-                  >Contraseña</label>
-                  <i class="fa-solid fa-key"></i>
-                  <input
-                      id="contra"
-                      type="text"
-                      placeholder="Contraseña"
-                      class="form-control"
-                      formControlName="password"
-                      [ngClass]="{'is-invalid' : loginForm.controls['password'].touched && loginForm.controls['password'].errors!['required']}"
-                  />
-
-                  </div>
-
-                  <div class="form-group">
-                  <input
-                      type="submit"
-                      value="Iniciar Sesión"
-                      class="btn btn-primary"
-                  />
-                  </div>
-              </div>
-          </form>
         </div>
 
-        <nav>
+        <nav class="d-flex flex-column p-2">
             <a
                 href=""
             >¿No tienes una cuenta? Regístrate</a>
-
             <a
                 href=""
             >Olvidé mi password</a>

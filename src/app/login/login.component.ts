@@ -22,14 +22,18 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onSubmit() {
+  async onSubmit() {
     //this.enviado=true
     console.log(this.loginForm.controls["usuario"].value)
     console.log(this.loginForm.controls["password"].value)
 
-    Swal.fire({
-      title:"Bienvenido al sistema"
-    })
+    await Swal.fire({
+      title: "Bienvenido al sistema",
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1250
+    }      
+    )
 
     this.router.navigate(['inicio'])
   }
