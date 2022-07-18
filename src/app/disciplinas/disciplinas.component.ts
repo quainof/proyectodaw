@@ -18,7 +18,8 @@ export class DisciplinasComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.filtrarDisciplinasForm = this.formBuilder.group({
-      filtro:['']
+      filtro:[''],
+      itemsPorPagina:[2]
     })
   }
 
@@ -78,12 +79,23 @@ export class DisciplinasComponent implements OnInit {
     this.onFiltrar()
   }
 
-  onFiltrar(){
-    this.servicioDisciplinas.getDisciplinasFiltro(this.filtrarDisciplinasForm.controls[`filtro`].value, this.paginaNueva).then(
+  async onFiltrar(){
+    await this.servicioDisciplinas.getDisciplinasFiltro(
+      this.filtrarDisciplinasForm.controls[`filtro`].value,
+      this.paginaNueva,
+      this.filtrarDisciplinasForm.controls['itemsPorPagina'].value
+    ).then(
       data => { this.disciplinas = data; },
       error => { console.log(error)}
     )
     this.paginas = this.servicioDisciplinas.obtenerNumeroPaginas()
+    console.log(this.paginaActual, " -> ",this.paginas-1)
+  }
+
+  onClickFiltrar(){
+    this.paginaActual = 0
+    this.paginaNueva = 0
+    this.onFiltrar()
   }
 
   onLimpiarFiltro() {

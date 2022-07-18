@@ -2,32 +2,44 @@
 <div class="container col-lg-8 border mx-auto p-2 mt-2">
   <form
     [formGroup]="filtrarDisciplinasForm"
-    (ngSubmit)="onFiltrar()"
+    (ngSubmit)="onClickFiltrar()"
   >
     <div class="d-flex gap-2 align-items-center m-2">
-      <label
-        for="filtro"
-        class="form-label m-0 mx-2"
-      >Filtro</label>
-      <input
-        id="filtro"
-        type="text"
-        formControlName="filtro"
-        class="form-control"
-      >
+      <div class="w-75">
+        <label for="filtro" class="form-label">Filtro por nombre</label>
+        <input
+          id="filtro"
+          type="text"
+          formControlName="filtro"
+          class="form-control"
+        >
+      </div>
+      <div class="w-25">
+        <label for="items" class="form-label">Ítems por página</label>
+        <select
+          id="items"
+          class="form-select"
+          formControlName="itemsPorPagina"
+        >
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=5>5</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="d-flex gap-2 align-items-center m-2 mt-4">
       <input
         type="submit"
         class="p-auto btn btn-secondary w-25"
         value="Filtrar"
       />
-
       <input
         type="button"
-        class="p-auto btn btn-secondary"
-        value="Limpiar"
+        class="p-auto btn btn-secondary w-25"
+        value="Limpiar filtrado"
         (click) = "onLimpiarFiltro()"
       />
-
     </div>
   </form>
 

@@ -40,8 +40,8 @@ export class DisciplinasService {
     return rta.data
   }
 
-  async getDisciplinasFiltro(filtro: String, pagina: number) : Promise<Disciplina[]> {
-    const rta = await axios.get(`http://localhost:8080/disciplinas?filtro=${filtro}&pag=${pagina}`)
+  async getDisciplinasFiltro(filtro: String, pagina: number, items: number) : Promise<Disciplina[]> {
+    const rta = await axios.get(`http://localhost:8080/disciplinas?filtro=${filtro}&pag=${pagina}&items=${items}`)
     this.paginas = rta.data.totalPages
     return rta.data.content
   }
