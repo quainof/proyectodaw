@@ -74,13 +74,16 @@ export class JugadoresComponent implements OnInit {
 
   onLimpiarFiltro() {
     this.filtrarJugadoresForm.controls["filtro"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
-    this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
+    this.limpiarCombos()
     this.paginaActual = 0
     this.paginaNueva = 0
     this.obtenerJugadores()
-    this.ultimoFiltro = ""
+  }
+
+  limpiarCombos(){
+    this.filtrarJugadoresForm.controls["filtroDisciplina"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroFacultad"].setValue('')
+    this.filtrarJugadoresForm.controls["filtroNacionalidad"].setValue('')
   }
 
   async onFiltrarCombos(){
@@ -93,6 +96,7 @@ export class JugadoresComponent implements OnInit {
     )
     this.ultimoFiltro = "c"
     this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
+    this.filtrarJugadoresForm.controls["filtro"].setValue('')
   }
 
   async onFiltrarTexto(){
@@ -103,6 +107,7 @@ export class JugadoresComponent implements OnInit {
     )
     this.ultimoFiltro = "t"
     this.paginas = this.servicioJugadores.obtenerNumeroPaginas()
+    this.limpiarCombos()
   }
 
   onVolver() {
@@ -130,21 +135,20 @@ export class JugadoresComponent implements OnInit {
     if(this.paginaActual == this.paginas - 1) return
     this.paginaNueva = this.paginaActual + 1
     this.paginaActual = this.paginaNueva
-    console.log(this.ultimoFiltro, this.paginaNueva)
-    if(this.ultimoFiltro = "t") this.onFiltrarTexto()
-    if(this.ultimoFiltro = "c") this.onFiltrarCombos()
-    if(this.ultimoFiltro = "") this.obtenerJugadores()
-
+    console.log(this.ultimoFiltro)
+    if(this.ultimoFiltro==="") this.obtenerJugadores()
+    if(this.ultimoFiltro==="c") this.onFiltrarCombos()
+    if(this.ultimoFiltro==="t") this.onFiltrarTexto()
   }
 
   onPaginaAnterior(){
     if(this.paginaActual == 0) return
     this.paginaNueva = this.paginaActual - 1
     this.paginaActual = this.paginaNueva
-    console.log(this.ultimoFiltro, this.paginaNueva)
-    if(this.ultimoFiltro = "t") this.onFiltrarTexto()
-    if(this.ultimoFiltro = "c") this.onFiltrarCombos()
-    if(this.ultimoFiltro = "") this.obtenerJugadores()
+    console.log(this.ultimoFiltro)
+    if(this.ultimoFiltro==="") this.obtenerJugadores()
+    if(this.ultimoFiltro==="c") this.onFiltrarCombos()
+    if(this.ultimoFiltro==="t") this.onFiltrarTexto()
   }
 
 }

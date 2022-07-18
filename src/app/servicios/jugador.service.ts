@@ -52,7 +52,6 @@ export class JugadorService {
     const url = `http://localhost:8080/jugadores/combos?dis=${dis}&fac=${fac}&nac=${nac}&pag=${pagina}`
     const rta = await axios.get(url)
     this.paginas = rta.data.totalPages
-    console.log(url)
     return rta.data.content;
   }
 
