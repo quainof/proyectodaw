@@ -3,7 +3,7 @@
   <form
     [formGroup]="filtrarJugadoresForm"
   >
-    <h4 for="filtro">Filtros</h4>
+    <h4 for="filtro" class="m-2">Filtros</h4>
 
     <label
       for="filtro"
@@ -87,12 +87,27 @@
       />
     </div>
 
-    <input
-      type="button"
-      class="p-auto btn btn-secondary mx-2 my-4 w-25"
-      value="Limpiar filtros"
-      (click) = "onLimpiarFiltro()"
-    />
+    <label for="items" class="form-label m-2 w-25">Ítems por página</label>
+
+    <div class=" d-flex gap-2">
+      <div class="w-25 mx-2">
+        <select
+          id="items"
+          class="form-select"
+          formControlName="itemsPorPagina"
+        >
+          <option value=3>3</option>
+          <option value=5>5</option>
+          <option value=8>8</option>
+        </select>
+      </div>
+      <input
+        type="button"
+        class="btn btn-dark"
+        value="Limpiar filtrado"
+        (click) = "onLimpiarFiltro()"
+      />
+    </div>
   </form>
 
   <h4 class="mt-5">Tabla de jugadores</h4>

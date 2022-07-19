@@ -30,7 +30,8 @@ export class JugadoresComponent implements OnInit {
       filtro:[''],
       filtroDisciplina: [""],
       filtroFacultad: [""],
-      filtroNacionalidad: [""]
+      filtroNacionalidad: [""],
+      itemsPorPagina:[3]
     });
   }
 
@@ -45,10 +46,6 @@ export class JugadoresComponent implements OnInit {
   paginas: number = 0
   paginaActual: number = 0
   paginaNueva: number = 0
-
-  /////////////////////////////
-  itemsPorPagina: number = 5
-  /////////////////////////////
 
   ngOnInit(): void {
     this.servicioDisciplinas.getDisciplinas().then(
@@ -67,7 +64,10 @@ export class JugadoresComponent implements OnInit {
   }
 
   async obtenerJugadores(){
-    await this.servicioJugadores.getJugadores(this.paginaNueva, this.itemsPorPagina).then(
+    await this.servicioJugadores.getJugadores(
+      this.paginaNueva,
+      this.filtrarJugadoresForm.controls['itemsPorPagina'].value
+    ).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
@@ -101,7 +101,11 @@ export class JugadoresComponent implements OnInit {
     const dis = this.filtrarJugadoresForm.controls["filtroDisciplina"].value.nombre || ""
     const fac = this.filtrarJugadoresForm.controls["filtroFacultad"].value.nombre || ""
     const nac = this.filtrarJugadoresForm.controls["filtroNacionalidad"].value.nombre || ""
-    await this.servicioJugadores.getJugadoresCombos(dis, fac, nac, this.paginaNueva, this.itemsPorPagina).then(
+    await this.servicioJugadores.getJugadoresCombos(
+      dis, fac, nac,
+      this.paginaNueva,
+      this.filtrarJugadoresForm.controls['itemsPorPagina'].value
+    ).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
@@ -118,7 +122,11 @@ export class JugadoresComponent implements OnInit {
 
   async onFiltrarTexto(){
     const texto = this.filtrarJugadoresForm.controls["filtro"].value
-    await this.servicioJugadores.getJugadoresTexto(texto, this.paginaNueva, this.itemsPorPagina).then(
+    await this.servicioJugadores.getJugadoresTexto(
+      texto,
+      this.paginaNueva,
+      this.filtrarJugadoresForm.controls['itemsPorPagina'].value
+    ).then(
       data => { this.jugadores = data; },
       error => { console.log(error)}
     )
