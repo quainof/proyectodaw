@@ -35,21 +35,21 @@ export class JugadorService {
     }
   }
 
-  async getJugadores(pagina: number) : Promise<Jugador[]> {
-    const rta = await axios.get(`http://localhost:8080/jugadores?pag=${pagina}`)
+  async getJugadores(pagina: number, items: number) : Promise<Jugador[]> {
+    const rta = await axios.get(`http://localhost:8080/jugadores?pag=${pagina}&items=${items}`)
     this.paginas = rta.data.totalPages
     return rta.data.content;
   }
 
-  async getJugadoresTexto(texto: String, pagina: number) : Promise<Jugador[]> {
-    const url = `http://localhost:8080/jugadores/texto?texto=${texto}&pag=${pagina}`
+  async getJugadoresTexto(texto: String, pagina: number, items: number) : Promise<Jugador[]> {
+    const url = `http://localhost:8080/jugadores/texto?texto=${texto}&pag=${pagina}&items=${items}`
     const rta = await axios.get(url)
     this.paginas = rta.data.totalPages
     return rta.data.content;
   }
 
-  async getJugadoresCombos(dis: String, fac: String, nac:String, pagina: number) : Promise<Jugador[]> {
-    const url = `http://localhost:8080/jugadores/combos?dis=${dis}&fac=${fac}&nac=${nac}&pag=${pagina}`
+  async getJugadoresCombos(dis: String, fac: String, nac:String, pagina: number, items: number) : Promise<Jugador[]> {
+    const url = `http://localhost:8080/jugadores/combos?dis=${dis}&fac=${fac}&nac=${nac}&pag=${pagina}&items=${items}`
     const rta = await axios.get(url)
     this.paginas = rta.data.totalPages
     return rta.data.content;
