@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -21,4 +22,13 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["disciplinas"])
   }
 
+  async onVolver(){
+    await Swal.fire({
+      title: "Nos vemos, vuelva pronto",
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.router.navigate(['login'])
+  }
 }

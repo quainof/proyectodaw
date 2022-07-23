@@ -24,9 +24,33 @@ export class LoginComponent implements OnInit {
 
   async onSubmit() {
     //this.enviado=true
-    console.log(this.loginForm.controls["usuario"].value)
-    console.log(this.loginForm.controls["password"].value)
-
+    if(this.loginForm.controls['usuario'].errors && this.loginForm.controls['password'].errors){
+      Swal.fire({
+        title: "Ingrese usuario y contraseña validos",
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1250
+      })
+      return
+    } 
+    if(this.loginForm.controls['usuario'].errors){
+      Swal.fire({
+        title: "Ingrese usuario valido",
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1250
+      })
+      return
+    } 
+    if(this.loginForm.controls['password'].errors){
+      Swal.fire({
+        title: "Ingrese contraseña valida",
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1250
+      })
+      return
+    } 
     await Swal.fire({
       title: "Bienvenido al sistema",
       icon: 'success',
